@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from datetime import date
+import datetime
 # Create your views here.
 def hello(request):
-    return render(request, 'hello.html', {})
+    today_time = datetime.datetime.now()
+    today = date.today()
+    totime = datetime.datetime.now().time()
+    return render(request, 'hello.html', {"day_time": today_time, "day": today, "time": totime, "bonu": "KOYEL GUHA neogi"})
 def mousumi(request):
     return render(request, 'mousumi.html', {})
 def koyel(request):
