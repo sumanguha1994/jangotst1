@@ -16,7 +16,8 @@ def mousumi(request):
     obj = {"today": today, "days_of_week": daysOfWeek}
     return render(request, 'mousumi.html', obj)
 def koyel(request):
-    return render(request, 'koyel.html', {})
+    daysOfWeek = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT', 'SUN']
+    return render(request, 'koyel.html', {"daysOfWeek": daysOfWeek})
 def suman(request, age = None, name = None):
     if(age == None and name == None):
         text = "<h1>name age nai.!!</h1>"

@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Welcome Koyel!!</h3>
-</body>
-</html>
+{% extends "layout/layout.html" %}
+    {% block title %} KOYEL G.N. {% endblock %}
+    {% block content %}
+        <span style="color: teal;">This is under a block content</span>
+        <h1>Welcome Koyel...</h1>
+        <p>IT's you pertional page</p>
+        {% for dow in daysOfWeek %}
+            {% if dow == 'MON' %}
+                1st day of the week is <span style="color: thistle;">{{dow}}</span><br />
+            {% elif dow == 'TUE' %}
+                2nd day of the week is <span style="color: thistle;">{{dow}}</span><br />
+            {% elif dow == 'WED' %}
+                3rd day of the week is <span style="color: thistle;">{{dow}}</span><br />
+            {% elif dow == 'THR' %}
+                4th day of the week is <span style="color: thistle;">{{dow}}</span><br />
+            {% elif dow == 'FRI' %}
+                5th day of the week is <span style="color: thistle;">{{dow}}</span><br />
+            {% elif dow == 'SAT' %}
+                6th day of the week is <span style="color: thistle;">{{dow}}</span><br />
+            {% elif dow == 'SUN' %}
+                7th day of the week is <span style="color: thistle;">{{dow}}</span><br />
+                <span style="color: turquoise">{{dow}}DAY</span> FUNDAY
+            {% else %}
+                <h1>it's not possible.There is no week names <span style="color: brown;">{{dow}}</span></h1> 
+            {% endif %}
+        {% endfor %}
+    {% endblock %}
