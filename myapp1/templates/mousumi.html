@@ -7,5 +7,27 @@
 </head>
 <body>
     <h3>Welcome Mousumi!!</h3>
+    <h4>Today is <span style="color: sienna;">{{today}}</span></h4>
+    <h4>We are in</h4>
+    {% if today.day == 1 %}
+        <span style="color: skyblue;">First Day of the month.</span>
+    {% elif today.day == 6 %}
+        <span style="color: skyblue;">Sixth Day of the month.</span>
+    {% elif today.day == 7 %}
+        <span style="color: skyblue;">seventh Day of the month.</span>
+    {% elif today.day == 15 %}
+        <span style="color: skyblue;">Fifteenth Day of the month.</span>
+    {% elif today.day == 30 %}
+        <span style="color: skyblue;">Last Day of the month.</span>
+    {% else %}
+        <span style="color: skyblue;">Don't know the day.</span>
+    {% endif %}
+    <p style="color: tomato;">Above the if-elif-else-endif example</p>
+
+    <h4>We are in</h4>
+    {% for dow in days_of_week %}
+        {{dow}}
+    {% endfor %}
+    <p style="color: tomato;">Above the for-endfor example</p>
 </body>
 </html>

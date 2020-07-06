@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import date
 import datetime
+
+from django import template
 # Create your views here.
 def hello(request):
     today_time = datetime.datetime.now()
@@ -9,7 +11,10 @@ def hello(request):
     totime = datetime.datetime.now().time()
     return render(request, 'hello.html', {"day_time": today_time, "day": today, "time": totime, "bonu": "KOYEL GUHA neogi"})
 def mousumi(request):
-    return render(request, 'mousumi.html', {})
+    today = datetime.datetime.now().date()
+    daysOfWeek = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT', 'SUN']
+    obj = {"today": today, "days_of_week": daysOfWeek}
+    return render(request, 'mousumi.html', obj)
 def koyel(request):
     return render(request, 'koyel.html', {})
 def suman(request, age = None, name = None):
