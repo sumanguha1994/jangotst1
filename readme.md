@@ -73,9 +73,10 @@ Meta inheritance::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Django Model Fields::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 -----------------------------------------------------------------------------------------------
 Field Name	            Class	                            Particular
+--==--==--              -==-==                              --==--==--==
 AutoField 	            class AutoField(**options)	        It An IntegerField that automatically increments.
-BigAutoField	        class BigAutoField(**options)	    It is a 64-bit integer, much like an AutoField except that it is guaranteed                     to                                                          fit numbers from 1 to 9223372036854775807.
-BigIntegerField	        class BigIntegerField(**options)	It is a 64-bit integer, much like an IntegerField except that it is guaranteed to fit numbers       from                                                        -9223372036854775808 to 9223372036854775807.
+BigAutoField	        class BigAutoField(**options)	    It is a 64-bit integer, much like an AutoField except that it is guaranteed to fit numbers from 1 to 9223372036854775807.
+BigIntegerField	        class BigIntegerField(**options)	It is a 64-bit integer, much like an IntegerField except that it is guaranteed to fit numbers from  -9223372036854775808 to 9223372036854775807.
 BinaryField	            class BinaryField(**options)	    A field to store raw binary data.
 BooleanField	        class BooleanField(**options)	    A true/false field. The default form widget for this field is a CheckboxInput.
 CharField	            class DateField(auto_now=False, auto_now_add=False, **options)	    It is a date, represented in Python by a datetime.date instance.
@@ -87,7 +88,7 @@ EmailField	            class EmailField(max_length=254, **options)	             
 FileField	            class FileField(upload_to=None, max_length=100, **options)	        It is a file-upload field.
 FloatField	            class FloatField(**options)	                                        It is a floating-point number represented in Python by a float instance.
 ImageField	            class ImageField(upload_to=None, height_field=None, width_field=None, max_length=100, **options)	It inherits all attributes and methods from FileField, but also validates that the uploaded object is a valid image.
-IntegerField	        class IntegerField(**options)	                                                                    It is an integer field. Values from -2147483648 to 2147483647 are safe in all databases supported by Django.
+IntegerField	        class IntegerField(**options)                                       It is an integer field. Values from -2147483648 to 2147483647 are safe in all databases supported by Django.
 NullBooleanField	    class NullBooleanField(**options)	                                Like a BooleanField, but allows NULL as one of the options.
 PositiveIntegerField	class PositiveIntegerField(**options)	                            Like an IntegerField, but must be either positive or zero (0). Values from 0 to 2147483647 are safe in all databases supported by Django.
 SmallIntegerField	    class SmallIntegerField(**options)	                                It is like an IntegerField, but only allows values under a certain (database-dependent) point.

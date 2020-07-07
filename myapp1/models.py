@@ -11,7 +11,8 @@ class Product(models.Model):
 class Seller(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     seller_name = models.CharField(max_length=100)
-    phone_no = models.IntegerField(max_length=100, blank=True, null=True)
+    # phone_no = models.IntegerField(max_length=100, blank=True, null=True)
+    phone_no = models.IntegerField(blank=True, null=True)
     email_id = models.EmailField(max_length=255, blank=True, null=True)
     address = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
