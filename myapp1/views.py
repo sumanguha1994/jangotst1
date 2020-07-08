@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
 from django.http import HttpResponse, HttpResponseNotFound  
 from django.views.decorators.http import require_http_methods 
 from django.template import loader
@@ -12,21 +12,29 @@ from myapp1.models import Product, Seller, MyShop
 # Create your views here.
 def hello(request):
     today_time = datetime.datetime.now()
-    ####  create an entry
-    shop = MyShop(
-        shop_name = "Bakar Dokan",
-        shop_email = "baka@soja.com",
-        shop_location = "Uttar Bamda, Jhargram, 721507",
-        shop_phono = "8918569109",
-        shop_ownner = "Baka kaka",
-    )
-    shop.save()
+    #### check email-id exists or not 
+    checking = MyShop.objects.filter(shop_email__exact = "koyel@patlahagu.com").count()
+    if(checking <= 0):
+        ####  create an entry
+        shop = MyShop(
+            shop_name = "Bakar Dokan",
+            shop_email = "koyel@patlahagu.com",
+            shop_location = "Uttar Bamda, Jhargram, 721507",
+            shop_phono = "8918569109",
+            shop_ownner = "Baka kaka",
+        )
+        shop.save()
     ####  read all enrtries
-    obj = {"shopdetails": MyShop.objects.all(), "datetime": today_time}
+    obj = {"shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
     template = loader.get_template('hello.html')
     return HttpResponse(template.render(obj))
-    # return render(request, 'hello.html', {"day_time": today_time, })
-
+    # return render(request, 'hello.html', {"day_time": today_time, "shopdetails": MyShop.objects.all().order_by('-id')})
+def hello_delete(request, id):
+    #### get this item by id
+    row = get_object_or_404(MyShop, id = id)
+    #### delete row
+    row.delete()
+    return HttpResponseRedirect("/myapp1/hello")
 
 
 

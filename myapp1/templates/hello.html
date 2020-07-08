@@ -1,26 +1,33 @@
 {% extends "layout/layout.html" %}
     {% block title %} Shops {% endblock %}
     {% block content %}
-        {% csrf_token %} 
+        <!-- {% csrf_token %}  -->
         <h3>Shop Details  <span style="color:darkblue">{{datetime}}</span></h3>
         <table style="border: darkred;">
             <thead>
                 <tr>
+                    <th>#Sl</th>
                     <th>Shop Name</th>
                     <th>Email-ID</th>
                     <th>LOcaTion</th>
                     <th>PhOnE NumBEr</th>
                     <th>OWneR</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for sd in shopdetails %}
                 <tr>
+                    <td>{{sd.id}}</td>
                     <td>{{sd.shop_name}}</td>
                     <td>{{sd.shop_email}}</td>
                     <td>{{sd.shop_location}}</td>
                     <td>{{sd.shop_phono}}</td>
                     <td>{{sd.shop_ownner}}</td>
+                    <td>
+                        <a href="{% url 'shop-delete' id=sd.id %}">Delete Me</a> | 
+                        <a href="">Edit Me</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
