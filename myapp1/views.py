@@ -35,6 +35,44 @@ def hello_delete(request, id):
     #### delete row
     row.delete()
     return HttpResponseRedirect("/myapp1/hello")
+def hello_single(request, id):
+    today_time = datetime.datetime.now()
+    row = get_object_or_404(MyShop, id = id)
+    obj = {"edit": 1, "editval": row, "shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
+    template = loader.get_template('hello.html')
+    return HttpResponse(template.render(obj))
+def hello_update(request, id):
+    today_time = datetime.datetime.now()
+    row = get_object_or_404(MyShop, id = id)
+    ### shop name
+    if(request.POST['shopname'] != None):
+        row.shop_name = request.POST['shopname']
+    else:
+        row.shop_name = row.shop_name
+    ### shop email
+    if(request.POST['emailid'] != None):
+        row.shop_email = request.POST['emailid']
+    else:
+        row.shop_email = row.shop_email
+    ### shop location
+    if(request.POST['location'] != None):
+        row.shop_location = request.POST['location']
+    else:
+        row.shop_location = row.shop_location
+    ### shop phoneno
+    if(request.POST['phoneno'] != None):
+        row.shop_phono = request.POST['phoneno']
+    else:
+        row.shop_phono = row.shop_phono
+    ### shop owner
+    if(request.POST['owername'] != None):
+        row.shop_ownner = request.POST['owername']
+    else:
+        row.shop_ownner = row.shop_ownner
+    obj = {"shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
+    template = loader.get_template('hello.html')
+    return HttpResponse(template.render(obj))
+
 
 
 

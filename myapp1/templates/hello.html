@@ -1,9 +1,53 @@
 {% extends "layout/layout.html" %}
     {% block title %} Shops {% endblock %}
     {% block content %}
+        {% if edit == 1 %}
+        <div class="container">
+            <form method="post" action="{% url 'shop-update' editval.id %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Shope Name</label>
+                                <input type="text" name="shopname" value="{% if edit == 1 %}{{editval.shop_name}}{% endif %}" id="shopname" class="form-control" placeholder="Shop Name">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Email-ID</label>
+                                <input type="email" name="emailid" value="{% if edit == 1 %}{{editval.shop_email}}{% endif %}" id="emailid" class="form-control" placeholder="example@yopmail.com">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Ower Name</label>
+                                <input type="text" name="owername" value="{% if edit == 1 %}{{editval.shop_ownner}}{% endif %}" id="owername" class="form-control" placeholder="Owner Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Phone Number</label>
+                                <input type="number" name="phoneno" value="{% if edit == 1 %}{{editval.shop_phono}}{% endif %}" id="phoneno" class="form-control" placeholder="Enter Phone NUmber">
+                            </div>
+                            <div class="col-md-8">
+                                <label for="">Location</label>
+                                <textarea name="location" id="location"value="{% if edit == 1 %}{{editval.shop_location}}{% endif %}"class="form-control" placeholder="Enter Your Full LOcation">{% if edit == 1 %}{{editval.shop_location}}{% endif %}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
         <!-- {% csrf_token %}  -->
         <h3>Shop Details  <span style="color:darkblue">{{datetime}}</span></h3>
-        <table style="border: darkred;">
+        <table style="border: darkred;" class="table table-hover table-border">
             <thead>
                 <tr>
                     <th>#Sl</th>
@@ -26,7 +70,7 @@
                     <td>{{sd.shop_ownner}}</td>
                     <td>
                         <a href="{% url 'shop-delete' id=sd.id %}">Delete Me</a> | 
-                        <a href="">Edit Me</a>
+                        <a href="{% url 'single-shop' id=sd.id %}">Edit Me</a>
                     </td>
                 </tr>
                 {% endfor %}

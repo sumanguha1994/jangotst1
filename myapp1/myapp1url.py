@@ -6,7 +6,9 @@ from myapp1 import views as myapp1_views
 
 urlpatterns = [
     path('hello/', myapp1_views.hello, name="hello-home"),
-    path('hello/<int:id>', myapp1_views.hello_delete, name="shop-delete"),
+    path('hello/<int:id>/edit', myapp1_views.hello_single, name="single-shop"),
+    path('hello/<int:id>/delete', myapp1_views.hello_delete, name="shop-delete"),
+    path('hello/<int:id>/update', myapp1_views.hello_update, name="shop-update"),
     # path('mousumi/', myapp1_views.mousumi, name="hello-mousumi"),
     # path('koyel/', myapp1_views.koyel, name="hello-koyel"),
     # path('suman/<int:age>/<str:name>/', myapp1_views.suman, name="hello-suman"),
