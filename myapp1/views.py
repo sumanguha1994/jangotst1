@@ -94,21 +94,21 @@ def hello_product_delete(request, id):
 
 
 
-    # def mousumi(request):
-    #     today = datetime.datetime.now().date()
-    #     daysOfWeek = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT', 'SUN']
-    #     obj = {"today": today, "days_of_week": daysOfWeek}
-    #     return render(request, 'mousumi.html', obj)
-    # def koyel(request):
-    #     daysOfWeek = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT', 'SUN']
-    #     return render(request, 'koyel.html', {"daysOfWeek": daysOfWeek})
-    # def suman(request, age = None, name = None):
-    #     if(age == None and name == None):
-    #         text = "<h1>name age nai.!!</h1>"
-    #     elif (age != None and name == None):
-    #         text ="<h1>Age ache %s but name nai</h1>"%age
-    #     elif (age == None and name != None):
-    #         text ="<h1>Age nai but name ache %s</h1>"%name
-    #     else:
-    #         text = "<h1>age %s and name %s</h1>"%(age, name)
-    #     return HttpResponse(text)
+# def mousumi(request):
+#     today = datetime.datetime.now().date()
+#     daysOfWeek = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT', 'SUN']
+#     obj = {"today": today, "days_of_week": daysOfWeek}
+#     return render(request, 'mousumi.html', obj)
+# def koyel(request):
+#     daysOfWeek = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT', 'SUN']
+#     return render(request, 'koyel.html', {"daysOfWeek": daysOfWeek})
+# def suman(request, age = None, name = None):
+#     if(age == None and name == None):
+#         text = "<h1>name age nai.!!</h1>"
+#     elif (age != None and name == None):
+#         text ="<h1>Age ache %s but name nai</h1>"%age
+#     elif (age == None and name != None):
+#         text ="<h1>Age nai but name ache %s</h1>"%name
+#     else:
+#         text = "<h1>age %s and name %s</h1>"%(age, name)
+#     return HttpResponse(text)
