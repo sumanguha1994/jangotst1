@@ -46,34 +46,135 @@
         </div>
         {% endif %}
         <!-- {% csrf_token %}  -->
-        <h3>Shop Details  <span style="color:darkblue">{{datetime}}</span></h3>
-        <table style="border: darkred;" class="table table-hover table-border">
-            <thead>
-                <tr>
-                    <th>#Sl</th>
-                    <th>Shop Name</th>
-                    <th>Email-ID</th>
-                    <th>LOcaTion</th>
-                    <th>PhOnE NumBEr</th>
-                    <th>OWneR</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sd in shopdetails %}
-                <tr>
-                    <td>{{sd.id}}</td>
-                    <td>{{sd.shop_name}}</td>
-                    <td>{{sd.shop_email}}</td>
-                    <td>{{sd.shop_location}}</td>
-                    <td>{{sd.shop_phono}}</td>
-                    <td>{{sd.shop_ownner}}</td>
-                    <td>
-                        <a href="{% url 'shop-delete' id=sd.id %}">Delete Me</a> | 
-                        <a href="{% url 'single-shop' id=sd.id %}">Edit Me</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3><span style="color:darkblue">{{datetime}}</span></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>SHOP DETAILS</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table style="border: darkred;" class="table table-hover table-border" title="EVERY SHOP DETAILS">
+                                <thead>
+                                    <tr>
+                                        <th>#Sl</th>
+                                        <th>Created Date</th>
+                                        <th>Last Updated Date</th>
+                                        <th>Shop Name</th>
+                                        <th>Email-ID</th>
+                                        <th>LOcaTion</th>
+                                        <th>PhOnE NumBEr</th>
+                                        <th>OWneR</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for sd in shopdetails %}
+                                    <tr>
+                                        <td>{{sd.id}}</td>
+                                        <td>{{sd.created_at}}</td>
+                                        <td>{{sd.updated_at}}</td>
+                                        <td>{{sd.shop_name|upper}}</td>
+                                        <td>{{sd.shop_email}}</td>
+                                        <td>{{sd.shop_location|upper}}</td>
+                                        <td>{{sd.shop_phono}}</td>
+                                        <td>{{sd.shop_ownner|upper}}</td>
+                                        <td>
+                                            <a href="{% url 'shop-delete' id=sd.id %}">Delete Me</a> | 
+                                            <a href="{% url 'single-shop' id=sd.id %}">Edit Me</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if shopdetails.has_previous %}
+                                    <a href="?page=1">&laquo; first</a>
+                                    <a href="?page={{ shopdetails.previous_page_number }}">previous</a>
+                                {% endif %}
+                        
+                                <span class="current">
+                                    Page {{ shopdetails.number }} of {{ shopdetails.paginator.num_pages }}.
+                                </span>
+                        
+                                {% if shopdetails.has_next %}
+                                    <a href="?page={{ shopdetails.next_page_number }}">next</a>
+                                    <a href="?page={{ shopdetails.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>PRODUCT DETAILS</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table style="border: darkred;" class="table table-hover table-border" title="EVERY PRODUCT DETAILS">
+                            <thead>
+                                <tr>
+                                    <th>#Sl</th>
+                                    <th>Created Date</th>
+                                    <th>Last Updated Date</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>MFD</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pd in products %}
+                                <tr>
+                                    <td>{{pd.id}}</td>
+                                    <td>{{pd.created_at}}</td>
+                                    <td>{{pd.updated_at}}</td>
+                                    <td>{{pd.product_name|upper}}</td>
+                                    <td>{{pd.price}}</td>
+                                    <td>{{pd.mfd}}</td>
+                                    <td>
+                                        <a href="{% url 'product-delete' id=pd.id %}">Delete Me</a> | 
+                                        <a href="">Edit Me</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row text-center">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if products.has_previous %}
+                                    <a href="?page=1">&laquo; first</a>
+                                    <a href="?page={{ products.previous_page_number }}">previous</a>
+                                {% endif %}
+                        
+                                <span class="current">
+                                    Page {{ products.number }} of {{ products.paginator.num_pages }}.
+                                </span>
+                        
+                                {% if products.has_next %}
+                                    <a href="?page={{ products.next_page_number }}">next</a>
+                                    <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endblock %}

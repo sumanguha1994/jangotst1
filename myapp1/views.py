@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
 from django.http import HttpResponse, HttpResponseNotFound  
 from django.views.decorators.http import require_http_methods 
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 from django.template import loader
 from django import template
 from datetime import date
@@ -26,7 +27,17 @@ def hello(request):
         )
         shop.save()
     ####  read all enrtries
-    obj = {"shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
+    shopobj = MyShop.objects.all().order_by('-id')
+    shopPaginator = Paginator(shopobj, 3)
+    page_number = request.GET.get('page')
+    shop_page_obj = shopPaginator.get_page(page_number)
+
+    productobj = Product.objects.all().order_by('created_at')
+    proPaginator = Paginator(productobj, 3)
+    page_number = request.GET.get('page')
+    pro_page_obj = proPaginator.get_page(page_number)
+
+    obj = {"shopdetails": shop_page_obj, "products": pro_page_obj, "datetime": today_time}
     template = loader.get_template('hello.html')
     return HttpResponse(template.render(obj))
     # return render(request, 'hello.html', {"day_time": today_time, "shopdetails": MyShop.objects.all().order_by('-id')})
@@ -76,8 +87,10 @@ def hello_update(request, id):
     # template = loader.get_template('hello.html')
     return HttpResponseRedirect("/myapp1/hello")
     # return HttpResponse(template.render(obj))
-
-
+def hello_product_delete(request, id):
+    row = get_object_or_404(Product, id = id)
+    return HttpResponse(row)
+    # return HttpResponseRedirect("/myapp1/hello")
 
 
 
