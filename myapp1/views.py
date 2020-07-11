@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
 from django.http import HttpResponse, HttpResponseNotFound  
 from django.views.decorators.http import require_http_methods 
+from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
 from django import template
 from datetime import date
@@ -41,8 +42,9 @@ def hello_single(request, id):
     obj = {"edit": 1, "editval": row, "shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
     template = loader.get_template('hello.html')
     return HttpResponse(template.render(obj))
+@csrf_exempt
 def hello_update(request, id):
-    today_time = datetime.datetime.now()
+    # today_time = datetime.datetime.now()
     row = get_object_or_404(MyShop, id = id)
     ### shop name
     if(request.POST['shopname'] != None):
@@ -69,9 +71,11 @@ def hello_update(request, id):
         row.shop_ownner = request.POST['owername']
     else:
         row.shop_ownner = row.shop_ownner
-    obj = {"shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
-    template = loader.get_template('hello.html')
-    return HttpResponse(template.render(obj))
+    row.save()
+    # obj = {"shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
+    # template = loader.get_template('hello.html')
+    return HttpResponseRedirect("/myapp1/hello")
+    # return HttpResponse(template.render(obj))
 
 
 
