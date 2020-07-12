@@ -72,4 +72,15 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+MEDIA_ROOT  = os.path.join(BASE_DIR, '/static/images/upload/')
+MEDIA_URL   = '/upload/'
 STATIC_URL = '/static/'
+
+#### emailserver setup
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+EMAIL_PORT = 587  ## 587 TLS PORT   ---   465 SSL PORT
+EMAIL_HOST_USER = 'your_account@gmail.com'
+EMAIL_HOST_PASSWORD = 'your account’s password'

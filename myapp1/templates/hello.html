@@ -1,7 +1,7 @@
 {% extends "layout/layout.html" %}
     {% block title %} Shops {% endblock %}
     {% block content %}
-        {% if edit == 1 %}
+        {% if edit == 1 and shop == 1 %}
         <div class="container">
             <form method="post" action="{% url 'shop-update' editval.id %}">
                 {% csrf_token %}
@@ -61,7 +61,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <table style="border: darkred;" class="table table-hover table-border" title="EVERY SHOP DETAILS">
+                            <table style="border: darkred;" class="table table-hover table-border" id="shoptbl" title="EVERY SHOP DETAILS">
                                 <thead>
                                     <tr>
                                         <th>#Sl</th>
@@ -87,8 +87,8 @@
                                         <td>{{sd.shop_phono}}</td>
                                         <td>{{sd.shop_ownner|upper}}</td>
                                         <td>
-                                            <a href="{% url 'shop-delete' id=sd.id %}">Delete Me</a> | 
-                                            <a href="{% url 'single-shop' id=sd.id %}">Edit Me</a>
+                                            <a href="{% url 'shop-delete' id=sd.id %}"><i class="fa fa-trash"></i></a> | 
+                                            <a href="{% url 'single-shop' id=sd.id %}"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <table style="border: darkred;" class="table table-hover table-border" title="EVERY PRODUCT DETAILS">
+                        <table style="border: darkred;" class="table table-hover table-border" id="producttbl" title="EVERY PRODUCT DETAILS">
                             <thead>
                                 <tr>
                                     <th>#Sl</th>
@@ -147,8 +147,7 @@
                                     <td>{{pd.price}}</td>
                                     <td>{{pd.mfd}}</td>
                                     <td>
-                                        <a href="{% url 'product-delete' id=pd.id %}">Delete Me</a> | 
-                                        <a href="">Edit Me</a>
+                                        <a href="{% url 'product-delete' id=pd.id %}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -176,5 +175,72 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>SELLER DETAILS</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table style="border: darkred;" class="table table-hover table-border" id="sellertbl" title="EVERY SELLER DETAILS">
+                            <thead>
+                                <tr>
+                                    <th>#Sl</th>
+                                    <th>Created Date</th>
+                                    <th>Last Updated Date</th>
+                                    <th>Seller Name</th>
+                                    <th>Product Name</th>
+                                    <th>Phone No</th>
+                                    <th>Email-ID</th>
+                                    <th>Address</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sl in sellers %}
+                                <tr>
+                                    <td>{{sl.id}}</td>
+                                    <td>{{sl.created_at}}</td>
+                                    <td>{{sl.updated_at}}</td>
+                                    <td>{{sl.seller_name|upper}}</td>
+                                    <td>{{sl.product_id_id.product_name}}</td>
+                                    <td>{{sl.phone_no}}</td>
+                                    <td>{{sl.email_id}}</td>
+                                    <td>{{sl.address}}</td>
+                                    <td>
+                                        <a href=""><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row text-center">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if sellers.has_previous %}
+                                    <a href="?page=1">&laquo; first</a>
+                                    <a href="?page={{ sellers.previous_page_number }}">previous</a>
+                                {% endif %}
+                        
+                                <span class="current">
+                                    Page {{ sellers.number }} of {{ sellers.paginator.num_pages }}.
+                                </span>
+                        
+                                {% if sellers.has_next %}
+                                    <a href="?page={{ sellers.next_page_number }}">next</a>
+                                    <a href="?page={{ sellers.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <script>
+            $('#producttbl').DataTable({"paging": false, "bInfo": true, "searching": true, "lengthChange": true});
+            $('#shoptbl').DataTable({"paging": false, "bInfo": true, "searching": true, "lengthChange": true});
+            $('#sellertbl').DataTable({"paging": false, "bInfo": true, "searching": true, "lengthChange": true});
+        </script>
     {% endblock %}

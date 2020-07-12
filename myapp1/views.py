@@ -3,6 +3,10 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.views.decorators.http import require_http_methods 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
+######################  sending mail  ##########################
+from django.core.mail import send_mail
+from django.conf import settings
+######################  sending mail  ##########################  
 from django.template import loader
 from django import template
 from datetime import date
@@ -33,11 +37,16 @@ def hello(request):
     shop_page_obj = shopPaginator.get_page(page_number)
 
     productobj = Product.objects.all().order_by('created_at')
-    proPaginator = Paginator(productobj, 3)
+    proPaginator = Paginator(productobj, 8)
     page_number = request.GET.get('page')
     pro_page_obj = proPaginator.get_page(page_number)
 
-    obj = {"shopdetails": shop_page_obj, "products": pro_page_obj, "datetime": today_time}
+    sellerobj = Seller.objects.all()
+    sellerPaginator = Paginator(sellerobj, 3)
+    page_number = request.GET.get('page')
+    seller_page_obj = sellerPaginator.get_page(page_number)
+
+    obj = {"shopdetails": shop_page_obj, "products": pro_page_obj, "sellers": seller_page_obj, "datetime": today_time}
     template = loader.get_template('hello.html')
     return HttpResponse(template.render(obj))
     # return render(request, 'hello.html', {"day_time": today_time, "shopdetails": MyShop.objects.all().order_by('-id')})
@@ -50,7 +59,7 @@ def hello_delete(request, id):
 def hello_single(request, id):
     today_time = datetime.datetime.now()
     row = get_object_or_404(MyShop, id = id)
-    obj = {"edit": 1, "editval": row, "shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
+    obj = {"edit": 1, "shop": 1, "editval": row, "shopdetails": MyShop.objects.all().order_by('-id'), "datetime": today_time}
     template = loader.get_template('hello.html')
     return HttpResponse(template.render(obj))
 @csrf_exempt
@@ -89,8 +98,9 @@ def hello_update(request, id):
     # return HttpResponse(template.render(obj))
 def hello_product_delete(request, id):
     row = get_object_or_404(Product, id = id)
-    return HttpResponse(row)
-    # return HttpResponseRedirect("/myapp1/hello")
+    row.delete()
+    # return HttpResponse(row)
+    return HttpResponseRedirect("/myapp1/hello")
 
 
 
@@ -112,3 +122,27 @@ def hello_product_delete(request, id):
 #     else:
 #         text = "<h1>age %s and name %s</h1>"%(age, name)
 #     return HttpResponse(text)
+
+
+###################  rendaring to another function  ##################################
+# def viewArticle(request, articleId):
+#    """ A view that display an article based on his ID"""
+#    text = "Displaying article Number : %s" %articleId
+#    return redirect(viewArticles, year = "2045", month = "02")
+	
+# def viewArticles(request, year, month):
+#    text = "Displaying articles of : %s/%s"%(year, month)
+#    return HttpResponse(text)
+###################  rendaring to another function  ##################################
+
+
+###################  sending mail  ##################################
+# def email(request):
+#     subject = 'Thank you for registering to our site'
+#     message = ' it  means a world to us '
+#     email_from = settings.EMAIL_HOST_USER
+#     recipient_list = ['receiver@gmail.com']
+#     send_mail( subject, message, email_from, recipient_list )
+#     return redirect('redirect to a new page')
+###################  sending mail  ##################################
+
