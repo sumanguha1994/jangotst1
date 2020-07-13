@@ -94,3 +94,24 @@ PositiveIntegerField	class PositiveIntegerField(**options)	                     
 SmallIntegerField	    class SmallIntegerField(**options)	                                It is like an IntegerField, but only allows values under a certain (database-dependent) point.
 TextField	            class TextField(**options)	                                        A large text field. The default form widget for this field is a Textarea.
 TimeField	            class TimeField(auto_now=False, auto_now_add=False, **options)	    A time, represented in Python by a datetime.time instance.
+-----------------------------------------------------------------------------------------------
+Generic View:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+-----------------------------------------------------------------------------------------------
+Imagine you need a static page or a listing page. Django offers an easy way to set those simple views that is called generic views.
+        ############################### type1 #######################################
+from django.views.generic import TemplateView   ######### view.py
+class StaticView(TemplateView):
+   template_name = "static.html"
+from myapp1.views import StaticView             ######### myapp1url.py
+
+path('koyel-static/', StaticView.as_view()),
+        ############################### type2 ########################################
+        No change in the views.py    |    Change the myapp1url.py file to be
+from django.views.generic import TemplateView
+from django.conf.urls import patterns, url
+
+path('koyel-static/', TemplateView.as_view(template_name = 'static.html'))
+path('product-static-list/', ListView.as_view(model = Product, template_name = "mousumi.html", context_object_name = "products_list")), 
+########=======generic list view========#######
+the variable pass by the generic view to the template is ""object_list"". If you want to name it yourself, you will need to add a ""context_object_name"" argument to the as_view method
+-----------------------------------------------------------------------------------------------

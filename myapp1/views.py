@@ -3,10 +3,13 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.views.decorators.http import require_http_methods 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
-######################  sending mail  ##########################
+######################  sending mail start ##########################
 from django.core.mail import send_mail
 from django.conf import settings
-######################  sending mail  ##########################  
+######################  sending mail end   ##########################  
+######################  generic view start ##########################
+from django.views.generic import TemplateView
+######################  generic view end   ##########################
 from django.template import loader
 from django import template
 from datetime import date
@@ -15,7 +18,7 @@ import datetime
 from myapp1.models import Product, Seller, MyShop
 # request supported method
 @require_http_methods(["GET", "POST", "PUT", "DELETE"])
-# Create your views here.
+# Create your classic views here.
 def hello(request):
     today_time = datetime.datetime.now()
     #### check email-id exists or not 
@@ -101,7 +104,14 @@ def hello_product_delete(request, id):
     row.delete()
     # return HttpResponse(row)
     return HttpResponseRedirect("/myapp1/hello")
-
+def hello_seller_delete(request, id):
+    row = get_object_or_404(Seller, id = id)
+    row.delete()
+    return HttpResponseRedirect("/myapp1/hello")
+######################  generic view  ##########################
+class StaticView(TemplateView):
+    template_name = "koyel.html"
+######################  generic view  ##########################
 
 
 # def mousumi(request):

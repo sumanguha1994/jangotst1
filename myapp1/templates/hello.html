@@ -209,7 +209,7 @@
                                     <td>{{sl.email_id}}</td>
                                     <td>{{sl.address}}</td>
                                     <td>
-                                        <a href=""><i class="fa fa-trash"></i></a>
+                                        <a href="{% url 'seller-delete' id=sl.id %}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}

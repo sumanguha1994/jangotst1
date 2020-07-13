@@ -1,33 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Welcome Mousumi!!</h3>
-    <h4>Today is <span style="color: sienna;">{{today}}</span></h4>
-    <h4>We are in</h4>
-    {% if today.day == 1 %}
-        <span style="color: skyblue;">First Day of the month.</span>
-    {% elif today.day == 6 %}
-        <span style="color: skyblue;">Sixth Day of the month.</span>
-    {% elif today.day == 7 %}
-        <span style="color: skyblue;">seventh Day of the month.</span>
-    {% elif today.day == 15 %}
-        <span style="color: skyblue;">Fifteenth Day of the month.</span>
-    {% elif today.day == 30 %}
-        <span style="color: skyblue;">Last Day of the month.</span>
-    {% else %}
-        <span style="color: skyblue;">Don't know the day.</span>
-    {% endif %}
-    <p style="color: tomato;">Above the if-elif-else-endif example</p>
-
-    <h4>We are in</h4>
-    {% for dow in days_of_week %}
-        {{dow}}
-    {% endfor %}
-    <p style="color: tomato;">Above the for-endfor example</p>
-</body>
-</html>
+{% extends "layout/layout.html" %}
+    {% block title %} KOYEL G.N. {% endblock %}
+    {% block content %}
+        <div class="container">
+            <h3>Welcome Mousumi!!</h3>
+            <p>IT's a Generic static page.</p>
+            <p>Call this page by ListView method from myapp1url.py</p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>PRODUCT DETAILS</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table style="border: darkred;" class="table table-hover table-border" id="producttbl" title="EVERY PRODUCT DETAILS">
+                            <thead>
+                                <tr>
+                                    <th>#Sl</th>
+                                    <th>Created Date</th>
+                                    <th>Last Updated Date</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>MFD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pd in products_list %}
+                                <tr>
+                                    <td>{{pd.id}}</td>
+                                    <td>{{pd.created_at}}</td>
+                                    <td>{{pd.updated_at}}</td>
+                                    <td>{{pd.product_name|upper}}</td>
+                                    <td>{{pd.price}}</td>
+                                    <td>{{pd.mfd}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('#producttbl').DataTable({"paging": true, "bInfo": true, "searching": true, "lengthChange": true});
+        </script>
+    {% endblock %}
