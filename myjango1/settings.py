@@ -72,9 +72,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-MEDIA_ROOT  = os.path.join(BASE_DIR, '/static/images/upload/')
-MEDIA_URL   = '/upload/'
+#### static file settings
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+#### upload file settings
+MEDIA_URL   = '/upload/'
+MEDIA_ROOT  = os.path.join(BASE_DIR, '/static/images/upload/')
 
 #### emailserver setup
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

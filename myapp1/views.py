@@ -10,6 +10,9 @@ from django.conf import settings
 ######################  generic view start ##########################
 from django.views.generic import TemplateView
 ######################  generic view end   ##########################
+######################  model form  #################################
+from myapp1.form import ProductForm, SellerForm
+######################  model form  #################################
 from django.template import loader
 from django import template
 from datetime import date
@@ -112,7 +115,29 @@ def hello_seller_delete(request, id):
 class StaticView(TemplateView):
     template_name = "koyel.html"
 ######################  generic view  ##########################
-
+######################  modelform     ##########################
+@csrf_exempt
+def product_entry(request):
+    if (request.method == 'GET'):
+        proForm = ProductForm()
+        obj = {"proform": proForm, "form":"product"}
+        template = loader.get_template("modelform.html")
+        return HttpResponse(template.render(obj))
+    else:
+        ProductFormValue = ProductForm(request.POST)
+        if ProductFormValue.is_valid():
+            ProductFormValue.save()
+            return HttpResponseRedirect("/myapp1/product-static-list")
+        else:
+            return HttpResponseRedirect("/myapp1/product-entry")
+@csrf_exempt
+def seller_entry(request):
+    if(request.method == 'GET'):
+        selForm = SellerForm()
+        obj = {"selform": selForm, "form": "seller"}
+        template = loader.get_template("modelform.html")
+        return HttpResponse(template.render(obj))
+######################  modelform     ##########################
 
 # def mousumi(request):
 #     today = datetime.datetime.now().date()
