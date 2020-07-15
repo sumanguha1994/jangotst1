@@ -139,6 +139,7 @@ def seller_entry(request):
         return HttpResponse(template.render(obj))
 ######################  modelform     ##########################
 
+
 # def mousumi(request):
 #     today = datetime.datetime.now().date()
 #     daysOfWeek = ['MON', 'TUE', 'WED', 'THR', 'FRI', 'SAT', 'SUN']
