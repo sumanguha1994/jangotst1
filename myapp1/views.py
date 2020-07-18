@@ -13,6 +13,7 @@ from django.views.generic import TemplateView
 ######################  model form  #################################
 from myapp1.form import ProductForm, SellerForm
 ######################  model form  #################################
+from myapp1.funtions import handle_uploaded_file 
 from django.template import loader
 from django import template
 from datetime import date
@@ -141,14 +142,14 @@ def seller_entry(request):
         template = loader.get_template("modelform.html")
         return HttpResponse(template.render(obj))
     else:
-        SellerFormValue = SellerForm(request.POST)
+        SellerFormValue = SellerForm(request.POST, request.FILES)
         if SellerFormValue.is_valid():
+            handle_uploaded_file(request.FILES['seller_pic'], 'seller')
             SellerFormValue.save()
             return HttpResponseRedirect("/myapp1/hello")
         else:
             return HttpResponseRedirect("/myapp1/seller-entry")
 ######################  modelform     ##########################
-
 
 # def mousumi(request):
 #     today = datetime.datetime.now().date()

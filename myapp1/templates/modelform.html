@@ -3,7 +3,7 @@
     {% block content %}
     <div class="container">
         {% if form == 'product' %}
-        <form action="{% url 'product-entry-form' %}" class="post-form" method="post">
+        <form action="{% url 'product-entry-form' %}" class="post-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{proform}}
             {% for er in proform %}
@@ -16,10 +16,14 @@
             </div>
         </form>
         {% else %}
-        <form action="{% url 'seller-entry-form' %}" class="post-form" method="post">
+        <form action="{% url 'seller-entry-form' %}" class="post-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{selform}}
-            <button type="submit" class="btn btn-success"><i class="fa fa-file"></i></button>
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <button type="submit" class="btn btn-info"><i class="fa fa-file"></i></button>
+                </div>
+            </div>
         </form>
         {% endif %}
     </div>

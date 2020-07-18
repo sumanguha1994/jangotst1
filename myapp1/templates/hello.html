@@ -189,8 +189,8 @@
                             <thead>
                                 <tr>
                                     <th>#Sl</th>
-                                    <th>Created Date</th>
-                                    <th>Last Updated Date</th>
+                                    <th>Last Update</th>
+                                    <th>Profile</th>
                                     <th>Seller Name</th>
                                     <th>Product Name</th>
                                     <th>Phone No</th>
@@ -203,8 +203,9 @@
                                 {% for sl in sellers %}
                                 <tr>
                                     <td>{{sl.id}}</td>
-                                    <td>{{sl.created_at}}</td>
                                     <td>{{sl.updated_at}}</td>
+                                    {% load static %}
+                                    <td><img src="{% static 'image/upload/' %}{{sl.seller_pic}}" height="50px" width="auto" alt="{{sl.seller_name|upper}}"></td>
                                     <td>{{sl.seller_name|upper}}</td>
                                     <td>{{sl.product_id_id.product_name}}</td>
                                     <td>{{sl.phone_no}}</td>
