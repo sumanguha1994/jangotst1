@@ -147,7 +147,9 @@
                                     <td>{{pd.price}}</td>
                                     <td>{{pd.mfd}}</td>
                                     <td>
-                                        <a href="{% url 'product-delete' id=pd.id %}"><i class="fa fa-trash"></i></a>
+                                        <a href="{% url 'product-delete' id=pd.id %}"><i class="fa fa-trash"></i></a> |
+                                        <a href=""><i class="fa fa-edit"></i></a> |
+                                        <a href="{% url 'product-entry-form' %}" target="_blank"><i class="fa fa-wpforms"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -209,7 +211,9 @@
                                     <td>{{sl.email_id}}</td>
                                     <td>{{sl.address}}</td>
                                     <td>
-                                        <a href="{% url 'seller-delete' id=sl.id %}"><i class="fa fa-trash"></i></a>
+                                        <a href="{% url 'seller-delete' id=sl.id %}"><i class="fa fa-trash"></i></a> | 
+                                        <a href=""><i class="fa fa-edit"></i></a> |
+                                        <a href="{% url 'seller-entry-form' %}" target="_blank"><i class="fa fa-wpforms"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}

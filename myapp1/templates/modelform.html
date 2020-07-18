@@ -6,7 +6,14 @@
         <form action="{% url 'product-entry-form' %}" class="post-form" method="post">
             {% csrf_token %}
             {{proform}}
-            <button type="submit" class="btn btn-success"><i class="fa fa-file"></i></button>
+            {% for er in proform %}
+                {{er.errors}}
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-file"></i></button>
+                </div>
+            </div>
         </form>
         {% else %}
         <form action="{% url 'seller-entry-form' %}" class="post-form" method="post">

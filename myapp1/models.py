@@ -35,3 +35,5 @@ class MyShop(models.Model):
     class Meta:
         db_table = "ShopDetail"
 
+# password = forms.CharField(widget = forms.PasswordInput())     #### for any password field ####
+

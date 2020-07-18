@@ -120,7 +120,7 @@ class StaticView(TemplateView):
 def product_entry(request):
     if (request.method == 'GET'):
         proForm = ProductForm()
-        obj = {"proform": proForm, "form":"product"}
+        obj = {"proform": proForm.as_ul(), "form":"product"}   ######   as_ul() [list wise form shows in html page]
         template = loader.get_template("modelform.html")
         return HttpResponse(template.render(obj))
     else:
@@ -129,14 +129,24 @@ def product_entry(request):
             ProductFormValue.save()
             return HttpResponseRedirect("/myapp1/product-static-list")
         else:
-            return HttpResponseRedirect("/myapp1/product-entry")
+            proForm = ProductForm()
+            obj = {"proform": proForm.as_p(), "form":"product"}  
+            template = loader.get_template("modelform.html")
+            return HttpResponse(template.render(obj))
 @csrf_exempt
 def seller_entry(request):
     if(request.method == 'GET'):
         selForm = SellerForm()
-        obj = {"selform": selForm, "form": "seller"}
+        obj = {"selform": selForm.as_p(), "form": "seller"}    #######  as_p() [paragraph wise form shows in html page]
         template = loader.get_template("modelform.html")
         return HttpResponse(template.render(obj))
+    else:
+        SellerFormValue = SellerForm(request.POST)
+        if SellerFormValue.is_valid():
+            SellerFormValue.save()
+            return HttpResponseRedirect("/myapp1/hello")
+        else:
+            return HttpResponseRedirect("/myapp1/seller-entry")
 ######################  modelform     ##########################
 
 
@@ -171,7 +181,6 @@ def seller_entry(request):
 #    return HttpResponse(text)
 ###################  rendaring to another function  ##################################
 
-
 ###################  sending mail  ##################################
 # def email(request):
 #     subject = 'Thank you for registering to our site'
@@ -182,3 +191,12 @@ def seller_entry(request):
 #     return redirect('redirect to a new page')
 ###################  sending mail  ##################################
 
+################### model form show ####################################################
+#   as_ul()    [add like this in view.py page] [list wise form shows in html page]
+#   as_p()     [add like this in view.py page] [paragraph wise form shows in html page]
+#   as_table() [add like this in view.py page] [table wise form shows up in html page]
+#                         OR
+#   {{objname.as_ul}}    [add like this in html view page]
+#   {{objname.as_p}}     [add like this in html view page]
+#   {{objname.as_table}} [add like this in html view page]
+################### model form show ####################################################
