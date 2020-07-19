@@ -22,6 +22,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #####  custome  #####
+    'myapp1.middleware.JSONTranslationMiddleware',
 ]
 ROOT_URLCONF = 'myjango1.urls'
 TEMPLATES = [

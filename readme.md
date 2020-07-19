@@ -3,7 +3,7 @@ python/python3 manage.py startapp myapp1
 python manage.py runserver
 python manage.py makemigrations myapp1
 python manage.py migrate
-
+python manage.py showmigrations or python manage.py showmigrations myapp1  
 -----------------------------------------------------------------------------------------------
 Model methods::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 -----------------------------------------------------------------------------------------------

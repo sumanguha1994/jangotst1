@@ -15,6 +15,11 @@ class SellerForm(forms.ModelForm):
         model = Seller
         fields = "__all__"
 
+################################  fields for ModelForm  #########################
+# fiels = "__all__"  [all fields which are mentioned in model]
+#                        or
+# fields = ['fname','lname','email'] [specific fields]
+################################  fields for ModelForm  #########################
 
 ###########################   custome validation   ##########################
 # class ProductForm(forms.Form):
@@ -40,13 +45,13 @@ class SellerForm(forms.ModelForm):
 #         return proprice
 ###########################   custome validation   ##########################
 
-###########################  form  ##########################################
+###########################  type of form  ##########################################
 # there is 2 type of forms 1.ModelForm 2.Form  
 # [but in both case have to use form class]
 # forms.ModelForm  => fields = '__all__'  [it requires the Model]
 #                       but
 # forms.Form       => have to write all the fileds [it does not require the Model]
-###########################  form  ##########################################
+###########################  type of form  ##########################################
 
 #############################  field  #############################################################
 # Commonly used fields and their details 

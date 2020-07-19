@@ -13,7 +13,12 @@ from django.views.generic import TemplateView
 ######################  model form  #################################
 from myapp1.form import ProductForm, SellerForm
 ######################  model form  #################################
+######################  file uploading function import ##############
 from myapp1.funtions import handle_uploaded_file 
+######################  file uploading function import ##############
+###################### use middleware in template ###################
+from django.template.response import TemplateResponse
+###################### use middleware in template ###################
 from django.template import loader
 from django import template
 from datetime import date
@@ -39,7 +44,7 @@ def hello(request):
         shop.save()
     ####  read all enrtries
     shopobj = MyShop.objects.all().order_by('-id')
-    shopPaginator = Paginator(shopobj, 3)
+    shopPaginator = Paginator(shopobj, 5)
     page_number = request.GET.get('page')
     shop_page_obj = shopPaginator.get_page(page_number)
 
@@ -49,7 +54,7 @@ def hello(request):
     pro_page_obj = proPaginator.get_page(page_number)
 
     sellerobj = Seller.objects.all()
-    sellerPaginator = Paginator(sellerobj, 3)
+    sellerPaginator = Paginator(sellerobj, 5)
     page_number = request.GET.get('page')
     seller_page_obj = sellerPaginator.get_page(page_number)
 
@@ -144,12 +149,35 @@ def seller_entry(request):
     else:
         SellerFormValue = SellerForm(request.POST, request.FILES)
         if SellerFormValue.is_valid():
+            ##################  file uploading function   ##############
             handle_uploaded_file(request.FILES['seller_pic'], 'seller')
             SellerFormValue.save()
             return HttpResponseRedirect("/myapp1/hello")
         else:
             return HttpResponseRedirect("/myapp1/seller-entry")
 ######################  modelform     ##########################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # def mousumi(request):
 #     today = datetime.datetime.now().date()
@@ -201,3 +229,7 @@ def seller_entry(request):
 #   {{objname.as_p}}     [add like this in html view page]
 #   {{objname.as_table}} [add like this in html view page]
 ################### model form show ####################################################
+
+################### moddleware ###############################################
+# middleware does work without using of -> "TemplateResponse"
+################### moddleware ###############################################

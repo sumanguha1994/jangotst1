@@ -2,12 +2,55 @@
     {% block title %} KOYEL G.N. {% endblock %}
     {% block content %}
         <div class="container">
-            <span style="color: teal;">This is under a block content</span>
-            <h1>Welcome Koyel...</h1>
-            <p>IT's you pertional page</p>
-            <p>IT's a Generic static page.</p>
-            <p>Call this page by StaticView method from view && myapp1url.py</p>
+            <div class="col-md-3">
+                <select name="lang" class="form-control" onchange="changelang(this.value)" style="border:olive, 1px, solid" id="lang">
+                    <option value="en" selected>English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="bn">Bengali</option>
+                    <option value="ar">Arabic</option>
+                    <option value="jp">Japan</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <h1 id="greetingh1"></h1>
+                <h3 id="msgh3"></h3>
+                <span style="color: rebeccapurple" id="blockspan">This is under a block content</span>
+                <h1 style="color: red" id="koyel">Welcome Koyel...</h1>
+                <p id="pertional_pagep">IT's you pertional page</p>
+                <p id="generaic_static_pagep">IT's a Generic static page.</p>
+                <p id="staticview_methodp">Call this page by StaticView method from view && myapp1url.py</p>
+                {{translations|json_script:"translations"}}
+            </div>
         </div>
+        <script>
+            $(document).ready(function(){
+                let greeting = JSON.parse(document.getElementById('translations').textContent).en;
+                $("#greetingh1").html(greeting.greeting);
+                $("#msgh3").html(greeting.msg);
+            });
+            function changelang(lang)
+            {
+                let val, greeting;
+                if(lang == 'hi')
+                    greeting = JSON.parse(document.getElementById('translations').textContent).hi;
+                else if(lang == 'bn')
+                    greeting = JSON.parse(document.getElementById('translations').textContent).bn;
+                else if(lang == 'ar')
+                    greeting = JSON.parse(document.getElementById('translations').textContent).ar;
+                else if(lang == 'jp')
+                    greeting = JSON.parse(document.getElementById('translations').textContent).jp;
+                else
+                    greeting = JSON.parse(document.getElementById('translations').textContent).en;
+                
+                $("#greetingh1").html(greeting.greeting);
+                $("#msgh3").html(greeting.msg);
+                $('#blockspan').html(greeting.content);
+                $('#koyel').html(greeting.koyel);
+                $('#pertional_pagep').html(greeting.pertional_page);
+                $('#generaic_static_pagep').html(greeting.generaic_static_page);
+                $('#staticview_methodp').html(greeting.staticview_method);
+            }
+        </script>
         <!-- {% for dow in daysOfWeek %} -->
             <!-- {% if dow == 'MON' %} -->
                 <!-- 1st day of the week is <span style="color: thistle;">{{dow}}</span><br /> -->
