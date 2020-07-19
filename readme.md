@@ -115,3 +115,35 @@ path('product-static-list/', ListView.as_view(model = Product, template_name = "
 ########=======generic list view========#######
 the variable pass by the generic view to the template is ""object_list"". If you want to name it yourself, you will need to add a ""context_object_name"" argument to the as_view method
 -----------------------------------------------------------------------------------------------
+REQUEST && RESPONSE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+-----------------------------------------------------------------------------------------------
+commonly used requst-response methods:
+    ----------------------
+    HttpRequest Attributes
+    ----------------------
+    1.HttpRequest.body     => It returns the raw HTTP request body as a byte string => request.body
+    2.HttpRequest.path_info   => It shows path info portion of the path             => request.path_info
+    3.HttpRequest.method  => It shows the HTTP method used in the request.          => request.method
+    4.HttpRequest.content_type  => It shows the MIME type of the request            => request.content_type
+    5.HttpRequest.GET  => It returns all given HTTP GET parameters.                 => request.GET
+    6.HttpRequest.POST => all given HTTP POST parameters.                           => request.POST
+    7.HttpRequest.COOKIES => It returns all cookies available.                      => request.COOKIES
+    8.HttpRequest.FILES => It contains all uploaded files.                          => request.FILES
+    9.HttpRequest.META => It shows all available Http headers.                      => request.META
+    --------------------
+    HttpRequest Methods
+    --------------------
+    1.HttpRequest.get_host() => It returns the original host of the request.
+    2.HttpRequest.is_ajax()  => It returns True if the request was made via an XMLHttpRequest.
+    -----------------------
+    HttpResponse Attributes
+    -----------------------
+    1.HttpResponse.content => A bytestring representing the content, encoded from a string if necessary.
+    2.HttpResponse.status_code => It is an HTTP status code for the response.
+    3.HttpResponse.closed => It is True if the response has been closed.
+-----------------------------------------------------------------------------------------------
+session::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+-----------------------------------------------------------------------------------------------
+set session by  => request.session['keyname'] = 'value'
+get session by  => request.session.get('keyname)
+delete session  => del request.session['keyname']

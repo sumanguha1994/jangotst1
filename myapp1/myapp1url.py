@@ -20,6 +20,7 @@ urlpatterns = [
     path('hello-seller/<int:id>/delete', myapp1_views.hello_seller_delete, name="seller-delete"),
     path('product-entry/', myapp1_views.product_entry, name="product-entry-form"),
     path('seller-entry/', myapp1_views.seller_entry, name="seller-entry-form"),
+    path('set-name/<str:name>/', myapp1_views.set_name, name="set-name"),
     #########################   generic view   ##############################
     path('koyel-static/', StaticView.as_view()),                                         ########=======generic static/template view========#######
     path('product-static-list/', ListView.as_view(                                       ########=======generic list view========#######

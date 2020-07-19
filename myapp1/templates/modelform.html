@@ -27,4 +27,38 @@
         </form>
         {% endif %}
     </div>
+    <br />
+    <div class="container">
+        <div class="col-md-12">
+            {% if form == 'product' %}
+                <div class="row">
+                    <div class="col-md-6" style="color: seagreen;border: black 1px solid;">{{ses.ses1}}</div>
+                    <div class="col-md-6" style="color: rebeccapurple;border: black 1px solid;">{{ses.ses2}}</div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        // $(document).ready(function(){
+            // let forme = '{{form|upper}}';
+            // if(forme === 'PRODUCT'){
+            //     Swal.mixin({
+            //         input: 'text',
+            //         confirmButtonText: 'Next &rarr;',
+            //         showCancelButton: true,
+            //         progressSteps: ['1']
+            //     }).queue([{
+            //         title: 'Question 1',
+            //         text: "What's your name?"
+            //     }]).then((result) => {
+            //         if (result.value) {
+            //             const answers = JSON.stringify(result.value);
+            //             if(answers != undefined){
+            //                 // 
+            //             }
+            //         }
+            //     });
+            // }
+        // });
+    </script>
     {% endblock %}

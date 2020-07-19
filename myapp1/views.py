@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, HttpResponseRedirect, redirect
 from django.http import HttpResponse, HttpResponseNotFound  
 from django.views.decorators.http import require_http_methods 
 from django.views.decorators.csrf import csrf_exempt
@@ -125,8 +125,19 @@ class StaticView(TemplateView):
 @csrf_exempt
 def product_entry(request):
     if (request.method == 'GET'):
+        #######################    using session   #############################
+        # del request.session['test']
+        if 'test' not in request.session:
+            request.session['test'] = "test1 1st time session initialized.."
+            request.session['test1'] = "WOW!! session is on!!!"
+        else:
+            del request.session['test']
+            request.session['test'] = "test2 2nd time session initialized."
+            request.session['test1'] = "WOW!! session changed!!!"
+        #######################    using session   #############################
         proForm = ProductForm()
-        obj = {"proform": proForm.as_ul(), "form":"product"}   ######   as_ul() [list wise form shows in html page]
+        sesobj = {"ses1": request.session.get('test'), "ses2": request.session.get('test1')}
+        obj = {"proform": proForm.as_ul(), "form":"product", "ses": sesobj}   ######   as_ul() [list wise form shows in html page]
         template = loader.get_template("modelform.html")
         return HttpResponse(template.render(obj))
     else:
@@ -142,8 +153,13 @@ def product_entry(request):
 @csrf_exempt
 def seller_entry(request):
     if(request.method == 'GET'):
+        response = HttpResponse()
+        ####################  using cookie  #####################
+        response.set_cookie("key", "suman")
+        cookieobj = {"cook": request.COOKIES.get("key")}
+        ####################  using cookie  #####################
         selForm = SellerForm()
-        obj = {"selform": selForm.as_p(), "form": "seller"}    #######  as_p() [paragraph wise form shows in html page]
+        obj = {"selform": selForm.as_p(), "form": "seller", "cook": cookieobj}    #######  as_p() [paragraph wise form shows in html page]
         template = loader.get_template("modelform.html")
         return HttpResponse(template.render(obj))
     else:
@@ -156,6 +172,14 @@ def seller_entry(request):
         else:
             return HttpResponseRedirect("/myapp1/seller-entry")
 ######################  modelform     ##########################
+def set_name(request, name):
+    if 'test' not in request.session:
+        return redirect(product_entry)
+    else:
+        del request.session['test']
+        request.session['test'] = "test %s in product from session"%name
+        return HttpResponseRedirect("/myapp1/product-entry")
+        
 
 
 
