@@ -146,4 +146,9 @@ session:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 -----------------------------------------------------------------------------------------------
 set session by  => request.session['keyname'] = 'value'
 get session by  => request.session.get('keyname)
+key exists/not  => request.session.has_key('keyname')
 delete session  => del request.session['keyname']
+
+set cookies    => response.set_cookie("key", "value")
+get cookies    => response.COOKIES.get("key") | request.COOKIES['key']
+delete cookies => response.delete_cookie("key")

@@ -23,6 +23,7 @@ from django.template import loader
 from django import template
 from datetime import date
 import datetime
+import csv
 # get models here
 from myapp1.models import Product, Seller, MyShop
 # request supported method
@@ -127,7 +128,8 @@ def product_entry(request):
     if (request.method == 'GET'):
         #######################    using session   #############################
         # del request.session['test']
-        if 'test' not in request.session:
+        # if 'test' not in request.session:
+        if not request.session.has_key('test'):
             request.session['test'] = "test1 1st time session initialized.."
             request.session['test1'] = "WOW!! session is on!!!"
         else:
@@ -155,13 +157,17 @@ def seller_entry(request):
     if(request.method == 'GET'):
         response = HttpResponse()
         ####################  using cookie  #####################
-        response.set_cookie("key", "suman")
+        response.set_cookie("name", "suman")
+        ## set cookies    => response.set_cookie("key", "value")
+        ## get cookies    => response.COOKIES.get("key") | request.COOKIES['key']
+        ## delete cookies => response.delete_cookie("key")
         cookieobj = {"cook": request.COOKIES.get("key")}
         ####################  using cookie  #####################
         selForm = SellerForm()
         obj = {"selform": selForm.as_p(), "form": "seller", "cook": cookieobj}    #######  as_p() [paragraph wise form shows in html page]
         template = loader.get_template("modelform.html")
-        return HttpResponse(template.render(obj))
+        response = HttpResponse(template.render(obj))
+        return response
     else:
         SellerFormValue = SellerForm(request.POST, request.FILES)
         if SellerFormValue.is_valid():
@@ -172,13 +178,19 @@ def seller_entry(request):
         else:
             return HttpResponseRedirect("/myapp1/seller-entry")
 ######################  modelform     ##########################
-def set_name(request, name):
-    if 'test' not in request.session:
-        return redirect(product_entry)
-    else:
-        del request.session['test']
-        request.session['test'] = "test %s in product from session"%name
-        return HttpResponseRedirect("/myapp1/product-entry")
+######################  csv | pdf     ##########################
+def set_name_get_file(request, name):
+    if name == 'csv':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="file.csv"'
+        product = Product.objects.all()
+        writer = csv.writer(response)
+        for pro in product:
+            writer.writerow([pro.id, pro.product_name, pro.price, pro.mfd, pro.updated_at])
+        return response
+######################  csv | pdf     ##########################
+
+        
         
 
 
@@ -232,6 +244,7 @@ def set_name(request, name):
 # def viewArticles(request, year, month):
 #    text = "Displaying articles of : %s/%s"%(year, month)
 #    return HttpResponse(text)
+#  ex::::: return redirect(product_entry)
 ###################  rendaring to another function  ##################################
 
 ###################  sending mail  ##################################
