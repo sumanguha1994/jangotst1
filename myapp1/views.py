@@ -23,7 +23,10 @@ from django.template import loader
 from django import template
 from datetime import date
 import datetime
+###################### csv | pdf ####################################
 import csv
+from reportlab.pdfgen import canvas
+###################### csv | pdf ####################################
 # get models here
 from myapp1.models import Product, Seller, MyShop
 # request supported method
@@ -179,7 +182,7 @@ def seller_entry(request):
             return HttpResponseRedirect("/myapp1/seller-entry")
 ######################  modelform     ##########################
 ######################  csv | pdf     ##########################
-def set_name_get_file(request, name):
+def set_name_get_file(request, name = None):
     if name == 'csv':
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="file.csv"'
@@ -187,6 +190,16 @@ def set_name_get_file(request, name):
         writer = csv.writer(response)
         for pro in product:
             writer.writerow([pro.id, pro.product_name, pro.price, pro.mfd, pro.updated_at])
+        return response
+    else:
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="file.pdf"'
+        p = canvas.Canvas(response)
+        p.setFont("Times-Roman", 55)
+        # product = Product.objects.all()
+        p.drawString(100,700, "Hello, Javatpoint.")
+        p.showPage()
+        p.save()
         return response
 ######################  csv | pdf     ##########################
 
